@@ -33,7 +33,7 @@ context('Change preference to se matches', () => {
     cy.get('div').contains('Someone who drinks...').click().wait(300)
     cy.get('div').contains( 'Socially').should('be.visible')
     cy.get('div').contains( 'Yes').should('be.visible')
-    cy.get('input[type="radio"]').check('2').wait(300);
+    cy.get('input[type="radio"]').check('1').wait(300);
     cy.get('div').contains('Someone who drinks...').should('be.visible')
     cy.get('div').contains('Sometimes').should('be.visible')
 

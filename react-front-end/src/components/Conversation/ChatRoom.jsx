@@ -35,7 +35,7 @@ const ChatRoom = (props) => {
           {renderedMsgs}
         </div>
       </div>
-      <InputArea selected={props.selected} user={props.user} message={props.message} setMessage={props.setMessage} sendToServer={props.sendToServer} />
+      <InputArea selected={props.selected} user={props.user} message={props.message} setMessage={props.setMessage} sendToServer={props.sendToServer} sendGiphyToServer={props.sendGiphyToServer}/>
     
     </>
   );

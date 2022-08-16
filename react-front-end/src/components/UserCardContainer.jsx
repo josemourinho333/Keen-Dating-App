@@ -19,50 +19,9 @@ const UserCardContainer = (props) => {
     }
   };
 
-  /// PREFERENCES NEED WORKING
-  const pref = props.preferences;
-  
-  // I know that code is not DRY - but i cannot use 2 ternary operatiors and && symbols in 1 conditional
-  let filteredUsers = props.users?.filter( a => {
-    if ( pref.dating_goals !== 1 ? (  
-         a.drink_id === pref.drinks &&
-         a.dating_goal_id === pref.dating_goals &&
-         a.exercise_id === pref.exercises &&
-         a.location.includes(pref.location) &&
-         a.age >= pref.min_age &&
-         a.age <= pref.max_age &&
-         a.height_in_cm >= pref.min_height_in_cm &&
-         a.height_in_cm <= pref.max_height_in_cm
-        
-                  ):
- 
- // if dating_goal === 1 show all prefs
-         (
-      
-       a.drink_id === pref.drinks &&
-       a.exercise_id === pref.exercises &&
-       a.location.includes(pref.location) &&
-       a.age >= pref.min_age &&
-       a.age <= pref.max_age &&
-       a.height_in_cm >= pref.min_height_in_cm &&
-       a.height_in_cm <= pref.max_height_in_cm
-               )
-      ) {
-         return true
-       }
-       else return false
-   });
-
-   let filteredWithGender = filteredUsers?.filter( a => {
-    if ( pref.genders !== 3 ? a.gender_id === pref.genders : a.gender_id)
-    {return true}
-    else return false
-   });
- 
-   
-  const userCards = filteredWithGender?.map((user) => {
+  const userCards = props.filtered?.map((user) => {
     return (
-      <TinderCard onSwipe={(direction) => onSwipe(direction, user.id)} onCardLeftScreen={() => onCardLeftScreen(user.id)} className="keen-tinder-card w-full rounded-xl drop-shadow-2xl" key={user.id}>
+      <TinderCard onSwipe={(direction) => onSwipe(direction, user.id)} onCardLeftScreen={() => onCardLeftScreen(user.id)} className="keen-tinder-card w-full rounded-xl drop-shadow-lg" key={user.id}>
         <UserCard 
           key={user.id}
           id={user.id}

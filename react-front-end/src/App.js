@@ -26,6 +26,7 @@ const App = () => {
     updatePreferences,
     handleClickLogOut,
     updateProfile,
+    filtered, setFiltered,
   } = useAppData();
 
   // Render the following if state is empty and loggedIn as a user to wait until fetch is complete
@@ -49,13 +50,14 @@ const App = () => {
           !loggedIn 
           ? <LoginForm setLoggedIn={setLoggedIn} /> 
           : <>
-              <Nav state={state} user={user} handleClickLogOut={handleClickLogOut}/>
+              <Nav state={state} user={user} handleClickLogOut={handleClickLogOut} allMessages={allMessages} matches={matches} swipeUser={swipeUser}/>
               <UserCardContainer 
                 users={state.users}
                 preferences={preferences}
                 likedBy={state.likedBy}
                 swipeUser={swipeUser}
                 profile={false}
+                filtered={filtered}
               />
             </>
         } />
@@ -64,7 +66,7 @@ const App = () => {
           !loggedIn 
             ? <LoginForm setLoggedIn={setLoggedIn} /> 
             : <>
-                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut}/>
+                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut} allMessages={allMessages} matches={matches} swipeUser={swipeUser}/>
                 <UserCardContainer 
                   user={user}
                   profile={true}
@@ -79,7 +81,7 @@ const App = () => {
           !loggedIn 
             ? <LoginForm setLoggedIn={setLoggedIn} /> 
             : <>
-                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut} />
+                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut} allMessages={allMessages} matches={matches} swipeUser={swipeUser}/>
                 <UserCardContainer 
                   users={state.users}
                   preferences={preferences}
@@ -94,7 +96,7 @@ const App = () => {
           !loggedIn 
             ? <LoginForm setLoggedIn={setLoggedIn} /> 
             : <>
-                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut} />
+                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut} allMessages={allMessages} matches={matches} swipeUser={swipeUser}/>
                 <Matches state={state} user={user} matches={matches} allMessages={allMessages} setAllMessages={setAllMessages} messageSent={messageSent} setMessageSent={setMessageSent}
                 seenUpdate={seenUpdate} setSeenUpdate={setSeenUpdate}
                 />
@@ -106,7 +108,7 @@ const App = () => {
             ? <LoginForm setLoggedIn={setLoggedIn} /> 
             : !Object.keys(preferences).length  ? <>Loading</>
             : <>
-                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut}/>
+                <Nav state={state} user={user} handleClickLogOut={handleClickLogOut} allMessages={allMessages} matches={matches} swipeUser={swipeUser} />
                 <UserCardContainer 
                   user={user}
                   prefs={preferences}
@@ -123,7 +125,7 @@ const App = () => {
           !loggedIn 
           ? <LoginForm setLoggedIn={setLoggedIn} /> 
           : <>
-            <Nav state={state}user={user}  handleClickLogOut={handleClickLogOut} />
+            <Nav state={state}user={user}  handleClickLogOut={handleClickLogOut} allMessages={allMessages} matches={matches} swipeUser={swipeUser} />
           <CheckUserProfile
           matchedUsers={matches}/>
           </>

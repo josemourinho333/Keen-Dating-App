@@ -80,6 +80,22 @@ export default function Matches(props) {
     }
   };
 
+  const sendGiphyToServer = (url) => {
+    if (url) {
+      const msgData = {
+        from_user_id: props.user.id,
+        message: url,
+        to_user_id: selected.id,
+        message_seen: false,
+        date_sent: Date.now()
+      };
+      socket.emit('sendMessage', msgData);
+      setMessage('');
+    } else {
+      console.log('need to type something');
+    }
+  };
+
   if (props.matches.length === 0) {
     return (
       <section className="user-card-container w-full place-content-center">
@@ -117,6 +133,7 @@ export default function Matches(props) {
         message={message}
         setMessage={setMessage}
         matchesData={matchesData}
+        sendGiphyToServer={sendGiphyToServer}
       />
       <MatchesListHeader user={props.user} />
       <div className="bg-white matches-bubble-list flex flex-col border-l border-t border-b border-gray-300 py-1">

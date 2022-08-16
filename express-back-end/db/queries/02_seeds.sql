@@ -208,8 +208,10 @@ VALUES
 (1, 5, 'hey - seen by id5', true, CURRENT_TIMESTAMP),
 (5, 1, 'hey - seen by id1', true, CURRENT_TIMESTAMP),
 (1, 5, 'hey - seen by id5', true, CURRENT_TIMESTAMP),
-(5, 1, 'set seen true', false, CURRENT_TIMESTAMP);
+(5, 1, 'set seen true', false, CURRENT_TIMESTAMP),
 
+(1, 14, 'Adopt me im a baby 👼', true, CURRENT_TIMESTAMP),
+(14, 1, 'K bye', false, CURRENT_TIMESTAMP);
 
 INSERT INTO matchings (from_user_id, to_user_id, like_value, seen, matched_date) 
 VALUES 
@@ -222,6 +224,7 @@ VALUES
 
 (3, 1, true, false, CURRENT_TIMESTAMP),
 
+(4, 1, true, false, CURRENT_TIMESTAMP),
 (6, 1, true, false, CURRENT_TIMESTAMP),
 
 (8, 1, true, false, CURRENT_TIMESTAMP),

@@ -18,7 +18,7 @@ const EmojiTable = (props) => {
 
   return (
     <>
-    <EmojiHappyIcon className='emoji-icon mr-1 w-5 h-5 text-black bg-white relative' onClick={tableClickHandler}/>
+    <EmojiHappyIcon className='emoji-icon mr-1 w-5 h-5 text-black bg-white relative cursor-pointer' onClick={tableClickHandler}/>
     {props.emojiOpen
       ? <div className='absolute bg-white bottom-24 z-50'>
           <Picker onEmojiClick={onEmojiClick} />

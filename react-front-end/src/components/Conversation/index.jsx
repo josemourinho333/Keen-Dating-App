@@ -18,6 +18,7 @@ const Conversation = (props) => {
             setMessage={props.setMessage}
             message={props.message}
             matchesData={props.matchesData}
+            sendGiphyToServer={props.sendGiphyToServer}
           />
           </>
         : <div className='none-selected'> Send a message to one of your matches </div>

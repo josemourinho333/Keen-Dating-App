@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 import { HomeIcon, ChatAlt2Icon, AdjustmentsIcon } from "@heroicons/react/outline";
 import { Link, useLocation } from "react-router-dom";
 
@@ -6,9 +6,23 @@ export default function Nav(props) {
   let user;
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const [notify, setNotify] = useState(false);
 
   props.user? user = props.user : user = {Name: "", email : "", profile_photo: "" }
-  
+
+  // turn notify to true based on conditions
+  useEffect(() => {
+    for (const match of props.matches) {
+      if (!match.seen) {
+        setNotify(true);
+        break;
+      } else {
+        setNotify(false);
+      }
+    };
+
+  }, [props.matches, props.allMessages, props.swipeUser]);
+
   return (
     <div className="nav-bar grid drop-shadow border-b big-white sticky top-0 z-50 py-3">
               
@@ -32,8 +46,14 @@ export default function Nav(props) {
           <HomeIcon className="mx-5 h-7 cursor-pointer rounded-full hover:text-[#8A00A0] hover:bg-gray-100" />
           </Link>
 
-          <Link id='matchesNAvLink' to='/matches'>
-          <ChatAlt2Icon className="mx-5 h-7 cursor-pointer rounded-full hover:text-[#8A00A0] hover:bg-gray-100" />
+          <Link id='matchesNAvLink' to='/matches' className='relative'>
+          <ChatAlt2Icon className="relative mx-5 h-7 cursor-pointer rounded-full hover:text-[#8A00A0] hover:bg-gray-100" />
+          {!notify 
+            ? <></>
+            : <div className='bg-transparent text-fuchsia-800 text-lg absolute -top-4 right-5'>
+                {'\u25CF'}
+              </div>
+          }
           </Link>
 
           <Link to='/preferences'>

@@ -204,6 +204,14 @@
   background-color: transparent !important;
 }
 
+.matches-bubble-list {
+  overflow-y: scroll;
+}
+
+.matches-bubble-list::-webkit-scrollbar {
+  display: none;
+}
+
 
 
 

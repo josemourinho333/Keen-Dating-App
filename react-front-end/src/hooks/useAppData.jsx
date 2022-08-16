@@ -11,7 +11,8 @@ const reset = {
   preferences: {},
   prefOptions: {},
   matches: [],
-  swipeHistory: []
+  swipeHistory: [],
+  filtered: []
 }
 
 const useAppData = () => {
@@ -25,6 +26,7 @@ const useAppData = () => {
   const [matches, setMatches] = useState([])
   const [swipeHistory, setSwipeHistory] = useState([]);
   const [seenUpdate, setSeenUpdate] = useState(0);
+  const [filtered, setFiltered] = useState([]);
 
   // reset states on logout
   const resetStates = () => {
@@ -37,6 +39,7 @@ const useAppData = () => {
     setPrefOptions({...reset.prefOptions});
     setMatches([...reset.matches]);
     setSwipeHistory([...reset.swipeHistory]);
+    setFiltered([...reset.filtered]);
   };
 
   // if req.session.user_id exists, set loggedIn to true
@@ -60,6 +63,14 @@ const useAppData = () => {
       .catch((error) => console.log('error', error));
   }, [loggedIn]);
 
+  // Getting users current preferences settings
+  useEffect(() => {
+    axios.get('/api/users/preferences')
+      .then((results) => {
+        setPreferences({...results.data});
+      })
+    }, [loggedIn]);
+
   // promise chain for setting initial states
   // Depency: Will likely depend on swiping state
   useEffect(() => {
@@ -71,8 +82,30 @@ const useAppData = () => {
       .then((all) => {
         setState({...state, 
           users: all[0].data, 
-          likedBy: all[1].data});
-      }) 
+          likedBy: all[1].data
+        });
+        return all[0].data;
+      })
+      .then((everyone) => {
+        const newList = [];
+        everyone.forEach((person) => {
+          if ((person.gender_id === preferences.genders) 
+            && (person.location === preferences.location)
+            && ((person.age <= preferences.max_age) && (person.age >= preferences.min_age))
+            && ((person.height_in_cm <= preferences.max_height_in_cm) && (person.height_in_cm >= preferences.min_height_in_cm))
+          ) {
+            newList.push(person);
+          }
+        });
+        return newList;
+      })
+      .then((displayUsers) => {
+        if (displayUsers.length < 1) {
+          setFiltered([]);
+        } else {
+          setFiltered([...displayUsers]);
+        }
+      })
     }
 
   }, [loggedIn, preferences, matches]);
@@ -84,14 +117,6 @@ const useAppData = () => {
         setAllMessages([...msgs.data])
       });
   }, [messageSent, loggedIn, seenUpdate]);
-
-  // Getting users current preferences settings
-  useEffect(() => {
-    axios.get('/api/users/preferences')
-      .then((results) => {
-        setPreferences({...results.data});
-      })
-  }, [loggedIn]);
 
   // Get all preference options
   useEffect(() => {
@@ -174,6 +199,7 @@ const useAppData = () => {
     updatePreferences,
     handleClickLogOut,
     updateProfile,
+    filtered, setFiltered
   }
 };
 
